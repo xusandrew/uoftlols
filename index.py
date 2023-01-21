@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request
+import psycopg2
 
 app = Flask(__name__)
+
+api_key = "EST3529db50-91c5-4d65-8ea3-4b32c39c863dARY"
 
 
 @app.route('/')

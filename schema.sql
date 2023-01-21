@@ -20,3 +20,33 @@ CREATE TABLE analytics
     emotion VARCHAR(30),
     time TIMESTAMP NOT NULL
 );
+
+INSERT INTO users
+    (firstname,lastname)
+VALUES
+    ("Dave", "Dover");
+
+INSERT INTO users
+    (firstname,lastname)
+VALUES
+    ("Alice", "Bon");
+
+INSERT INTO chatdata
+    (message, sentuserid, recieveduserid, time)
+VALUES
+    ("Hello Alice.", 0, 1, "2023-1-21T13:49:51.141Z");
+
+INSERT INTO chatdata
+    (message, sentuserid, recieveduserid, time)
+VALUES
+    ("Hello Dave.", 1, 0, "2023-1-21T13:49:51.141Z");
+
+INSERT INTO analytics
+    (userid, emotion, time)
+VALUES
+    (0, "Happy", "2023-1-21T13:49:51.141Z")
+
+INSERT INTO analytics
+    (userid, emotion, time)
+VALUES
+    (1, "Sad", "2023-1-21T13:49:51.141Z")
