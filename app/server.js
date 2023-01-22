@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const pool = require('./src/db')
+const { spawn } = require('child_process')
 
 app.use(cors())
 app.use(express.json())
@@ -26,7 +27,6 @@ app.get('/get-response-message', async (req, res) => {
   try {
     const cur_user_id = req.query['curuserid']
     const other_user_id = req.query['otheruserid']
-    console.log(cur_user_id, other_user_id)
 
     const messages = await pool.query(`SELECT * FROM chatdata WHERE
     sentuserid=${other_user_id} AND receiveduserid=${cur_user_id}
@@ -34,8 +34,35 @@ app.get('/get-response-message', async (req, res) => {
     let message = messages.rows.slice(-1)[0].message
 
     // message is last string, generate a response from it and return
+    // classify_sentiment
+    // recommendation generator
+    let sentiment
+    let response
 
-    res.send('')
+    const sentiment_script = await spawn('python3', [
+      'src/sentiment_classifier.py',
+      message,
+    ])
+
+    sentiment_script.stdout.on('data', data => {
+      sentiment = data.toString()
+    })
+
+    sentiment_script.on('close', async () => {
+      const response_script = await spawn('python3', [
+        'src/recommendation_generator.py',
+        sentiment,
+        message,
+      ])
+
+      response_script.stdout.on('data', data => {
+        response = data.toString().slice(0, -2)
+      })
+
+      response_script.on('close', () => {
+        res.json({ message, sentiment, response })
+      })
+    })
   } catch (err) {
     console.error(err)
   }
