@@ -22,15 +22,15 @@ cur.execute('''CREATE TABLE users
                 id BIGSERIAL PRIMARY KEY,
                 message VARCHAR(500) NOT NULL,
                 sentuserid INT NOT NULL,
-                recieveduserid INT NOT NULL,
-                time TIMESTAMP NOT NULL
+                receiveduserid INT NOT NULL,
+                time TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
             );
 
             CREATE TABLE analytics
             (
                 userid INT NOT NULL,
                 emotion VARCHAR(30) NOT NULL,
-                time TIMESTAMP NOT NULL
+                time TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
             );
 
             INSERT INTO users
@@ -44,12 +44,12 @@ cur.execute('''CREATE TABLE users
             ('Alice', 'Bon');
 
             INSERT INTO chatdata
-            (message, sentuserid, recieveduserid, time)
+            (message, sentuserid, receiveduserid, time)
             VALUES
             ('Hello Alice.', 0, 1, '2023-1-21T13:49:51.141Z');
 
             INSERT INTO chatdata
-            (message, sentuserid, recieveduserid, time)
+            (message, sentuserid, receiveduserid, time)
             VALUES
             ('Hello Dave.', 1, 0, '2023-1-21T13:49:51.141Z');
 

@@ -21,48 +21,51 @@ def hello():
 
 
 @app.route('/set-new-message', methods=['POST'])
-async def set_new_message():
+def set_new_message():
     '''
     Get data from post request body, then upload to database
     Assumes names are fully typed out
     '''
 
-    message = request.form.get('message')
+    print(request)
+    # message = request.form.get('message')
     sent_user = request.form.get('sentuser')
-    received_user = request.form.get('receivedsuser')
+    print(sent_user)
+    return "Nothing"
+    # received_user = request.form.get('receivedsuser')
 
     # Testing code... can discard
-    await cur.execute(
-        f'SELECT * FROM users;')
-    data = await cur.fetchall()
-    return await jsonify(data)
+    # await cur.execute(
+    #     f'SELECT * FROM users;')
+    # data = await cur.fetchall()
+    # return await jsonify(data)
 
     # Upload to database
-    cur.execute(
-        f"INSERT INTO chatdata (message, sentuserid, recieveduserid) VALUES ('{message}', {sent_user}, {received_user});")
+    # cur.execute(
+    #     f"INSERT INTO chatdata (message, sentuserid, recieveduserid) VALUES ('{message}', {sent_user}, {received_user});")
 
 
-@app.route('/get-response-messages')
-async def get_response_messages():
-    pass
-    '''
-    Get user responses from current conversation, with the emotion that each
-    of the responses are. Query conversation from database and process the
-    data in responses.
+# @app.route('/get-response-messages')
+# async def get_response_messages():
+#     pass
+#     '''
+#     Get user responses from current conversation, with the emotion that each
+#     of the responses are. Query conversation from database and process the
+#     data in responses.
 
-    for ex:
-        responses = {
-            "Happy" : [],
-            "Sad" : [],
-            ...
-        }
+#     for ex:
+#         responses = {
+#             "Happy" : [],
+#             "Sad" : [],
+#             ...
+#         }
 
-    and return JSON data for them
-    '''
+#     and return JSON data for them
+#     '''
 
-    # Which users, passed in the query string
-    cur_user = request.args.get("cur-user")
-    other_user = request.args.get("other-user")
+#     # Which users, passed in the query string
+#     cur_user = request.args.get("cur-user")
+#     other_user = request.args.get("other-user")
 
     # Query db for data pertaining to only this conversation
 
