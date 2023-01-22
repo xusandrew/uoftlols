@@ -33,9 +33,6 @@ app.get('/get-response-message', async (req, res) => {
     ORDER BY time;`)
     let message = messages.rows.slice(-1)[0].message
 
-    // message is last string, generate a response from it and return
-    // classify_sentiment
-    // recommendation generator
     let sentiment
     let response
 
@@ -63,6 +60,44 @@ app.get('/get-response-message', async (req, res) => {
         res.json({ message, sentiment, response })
       })
     })
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+app.get('/get-chat', async (req, res) => {
+  /* Returns a list of messages sent and messages received depending on
+given users. Used to load chats */
+  try {
+    const cur_user_id = req.query['curuserid']
+    const other_user_id = req.query['otheruserid']
+
+    let received_messages = await pool.query(`SELECT * FROM chatdata WHERE
+    sentuserid=${other_user_id} AND receiveduserid=${cur_user_id}
+    ORDER BY time;`)
+
+    let sent_messages = await pool.query(`SELECT * FROM chatdata WHERE
+    sentuserid=${cur_user_id} AND receiveduserid=${other_user_id}
+    ORDER BY time;`)
+
+    received_messages = received_messages.rows
+    sent_messages = sent_messages.rows
+    res.json({ received_messages, sent_messages })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+app.get('/user-id-to-name', async (req, res) => {
+  try {
+    const user_id = req.query['userid']
+
+    let name = (
+      await pool.query(`SELECT * FROM users WHERE
+    id=${user_id};`)
+    ).rows[0]
+
+    res.json(name)
   } catch (err) {
     console.error(err)
   }
