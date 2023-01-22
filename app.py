@@ -32,81 +32,70 @@ def set_new_message():
     sent_user = request.form.get('sentuser')
     print(sent_user)
     return "Nothing"
-    # received_user = request.form.get('receivedsuser')
-
-    # Testing code... can discard
-    # await cur.execute(
-    #     f'SELECT * FROM users;')
-    # data = await cur.fetchall()
-    # return await jsonify(data)
-
-    # Upload to database
-    # cur.execute(
-    #     f"INSERT INTO chatdata (message, sentuserid, recieveduserid) VALUES ('{message}', {sent_user}, {received_user});")
 
 
-# @app.route('/get-response-messages')
-# async def get_response_messages():
-#     pass
-#     '''
-#     Get user responses from current conversation, with the emotion that each
-#     of the responses are. Query conversation from database and process the
-#     data in responses.
+@app.route('/get-response-messages')
+async def get_response_messages():
+    pass
+    '''
+    Get user responses from current conversation, with the emotion that each
+    of the responses are. Query conversation from database and process the
+    data in responses.
 
-#     for ex:
-#         responses = {
-#             "Happy" : [],
-#             "Sad" : [],
-#             ...
-#         }
+    for ex:
+        responses = {
+            "Happy" : [],
+            "Sad" : [],
+            ...
+        }
 
-#     and return JSON data for them
-#     '''
+    and return JSON data for them
+    '''
 
-#     # Which users, passed in the query string
-#     cur_user = request.args.get("cur-user")
-#     other_user = request.args.get("other-user")
+    # Which users, passed in the query string
+    cur_user = request.args.get("cur-user")
+    other_user = request.args.get("other-user")
 
     # Query db for data pertaining to only this conversation
 
     # Process data into responses
 
     # Return
-    # responses = {}
-    # return jsonify(responses)
+    responses = {}
+    return jsonify(responses)
 
 
-# @app.route('/get-profile-stats')
-# async def get_response_messages():
-#     pass
-#     '''
-#     Get profile stats from database,
+@app.route('/get-profile-stats')
+async def get_response_messages():
+    pass
+    '''
+    Get profile stats from database,
 
-#     for ex:
-#         profile_data = {
-#             "Happy" : [],
-#             "Sad" : [],
-#             "Best Friends" : [],
-#             ...
-#         }
+    for ex:
+        profile_data = {
+            "Happy" : [],
+            "Sad" : [],
+            "Best Friends" : [],
+            ...
+        }
 
-#     and return JSON data for them
-#     '''
+    and return JSON data for them
+    '''
 
-#     # Which users, passed in the query string
-#     user = request.args.get("user")
+    # Which users, passed in the query string
+    user = request.args.get("user")
 
-#     # Query db for data pertaining to only this user
+    # Query db for data pertaining to only this user
 
-#     # Process data into responses
+    # Process data into responses
 
-#     # profile_data = {}
-#     # return jsonify(profile_data)
+    # profile_data = {}
+    # return jsonify(profile_data)
 
 
-# async def run_analysis():
-#     '''
-#     Based on current data in the database, generate responses
-#     and profile data
-#     '''
-#     pass
+async def run_analysis():
+    '''
+    Based on current data in the database, generate responses
+    and profile data
+    '''
+    pass
